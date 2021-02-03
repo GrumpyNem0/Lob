@@ -1,13 +1,7 @@
-	local boab = {}
-	function boab.speed(num)
-	local PlayerSpeed = num
-	end
-	function boab.jump(num)
-	local JumpPower = num
-	end
-	function boab.CustomBrokenLegText(tex)
-	local customlegbroketext = tex
-	end
+local JumpPower = "65"
+local PlayerSpeed = "36"
+local customlegbroketext = "fuck you fucking snowflake"
+----------------------------------
 	if game.Players.LocalPlayer.PlayerGui:WaitForChild("Input") then
 	game.Players.LocalPlayer.PlayerGui.Input:Destroy()
 	local ScreenGui = Instance.new("ScreenGui")
@@ -181,4 +175,3 @@
 	ScreenGui:Destroy()
 else print('Failed to find what we need, reset your character and see if your speed increases if not execute again!')
 end
-return boab()
