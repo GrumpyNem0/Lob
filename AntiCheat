@@ -1,0 +1,184 @@
+	local boab = {}
+	function boab.speed(num)
+	local PlayerSpeed = num
+	end
+	function boab.jump(num)
+	local JumpPower = num
+	end
+	function boab.CustomBrokenLegText(tex)
+	local customlegbroketext = tex
+	end
+	if game.Players.LocalPlayer.PlayerGui:WaitForChild("Input") then
+	game.Players.LocalPlayer.PlayerGui.Input:Destroy()
+	local ScreenGui = Instance.new("ScreenGui")
+	local legbroken = Instance.new("ScreenGui")
+	local legbroken_2 = Instance.new("TextLabel")
+	ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	ScreenGui.Name = 'anticheatremovant'
+	legbroken.Name = "legbroken"
+	legbroken.Parent = ScreenGui
+	legbroken.Enabled = false
+	legbroken.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	legbroken_2.Name = "legbroken"
+	legbroken_2.Parent = legbroken
+	legbroken_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	legbroken_2.BackgroundTransparency = 1.000
+	legbroken_2.Position = UDim2.new(0.5, -100, 0.699999988, 60)
+	legbroken_2.Size = UDim2.new(0, 200, 0, 50)
+	legbroken_2.Font = Enum.Font.ArialBold
+	legbroken_2.Text = customlegbroketext
+	legbroken_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+	legbroken_2.TextSize = 18.000
+	legbroken_2.TextStrokeTransparency = 0.500
+	local function SCXX_fake_script()
+		local script = Instance.new('LocalScript', ScreenGui.Parent)
+		script.Name='Input'
+		legbroken.Parent = script
+		local v1 = game:service("UserInputService");
+		local l__ReplicatedStorage__2 = game.ReplicatedStorage;
+		local l__RemoteFunctions__3 = l__ReplicatedStorage__2:WaitForChild("RemoteFunctions");
+		local l__BindableEvents__4 = l__ReplicatedStorage__2:WaitForChild("BindableEvents");
+		while true do
+			wait();
+			if game.Players.LocalPlayer then
+				break;
+			end;
+		end;
+		while true do
+			wait();
+			if game.Players.LocalPlayer.Character then
+				break;
+			end;
+		end;
+		local l__Humanoid__5 = game.Players.LocalPlayer.Character.Humanoid;
+		workspace.CurrentCamera.CameraSubject = l__Humanoid__5;
+		local u1 = tick();
+		local u2 = 0;
+		local l__RemoteEvents__3 = l__ReplicatedStorage__2:WaitForChild("RemoteEvents");
+		local u4 = 0;
+		v1.InputBegan:connect(function(p1, p2)
+			if not p2 and p1.UserInputType.Name == "Keyboard" and l__Humanoid__5.Health > 0 then
+				local l__Name__6 = p1.KeyCode.Name;
+				if l__Name__6 == "Space" then
+					if tick() - u1 >= 0.8 then
+						l__Humanoid__5.JumpPower = JumpPower;
+						l__Humanoid__5.Jump = true;
+						u1 = tick();
+						wait();
+						l__Humanoid__5.JumpPower = 0;
+					else
+						l__Humanoid__5.Jump = false;
+						l__Humanoid__5.JumpPower = 0;
+					end;
+				elseif l__Name__6 == "X" then
+					if u2 ~= 1 and not v1:IsKeyDown("LeftShift") then
+						u2 = 1;
+					else
+						u2 = 0;
+					end;
+					l__RemoteEvents__3.ChangePosture:FireServer(u2);
+				elseif l__Name__6 == "Z" then
+					if u2 ~= 2 and not v1:IsKeyDown("LeftShift") then
+						u2 = 2;
+					else
+						u2 = 0;
+					end;
+					l__RemoteEvents__3.ChangePosture:FireServer(u2);
+				end;
+				if tick() - u4 > 0.5 then
+					if l__Name__6 == "One" then
+						u4 = tick();
+						l__RemoteEvents__3.ShortcutEquip:FireServer(1);
+						return;
+					end;
+					if l__Name__6 == "Two" then
+						u4 = tick();
+						l__RemoteEvents__3.ShortcutEquip:FireServer(2);
+						return;
+					end;
+					if l__Name__6 == "Three" then
+						u4 = tick();
+						l__RemoteEvents__3.ShortcutEquip:FireServer(3);
+						return;
+					end;
+					if l__Name__6 == "Four" then
+						u4 = tick();
+						l__RemoteEvents__3.ShortcutEquip:FireServer(4);
+					end;
+				end;
+			end;
+		end);
+		local u5 = false;
+		l__BindableEvents__4.Freeze.Event:connect(function()
+			u5 = true;
+			wait(10);
+			u5 = false;
+		end);
+		local v7 = Instance.new("BindableEvent");
+		v7.Event:connect(function()
+			l__RemoteEvents__3.Reset:FireServer();
+		end);
+		game:GetService("StarterGui"):SetCore("ResetButtonCallback", v7);
+		local u6 = false;
+		l__RemoteEvents__3.LegBroken.OnClientEvent:connect(function(p3)
+			u6 = p3;
+			script:WaitForChild("legbroken").Enabled = p3;
+		end);
+		game:service("RunService").Stepped:connect(function()
+			if l__Humanoid__5.Health > 0 and not u5 then
+				if v1:IsKeyDown("LeftShift") and not u6 then
+					if u2 == 0 then
+						l__Humanoid__5.WalkSpeed = PlayerSpeed;
+						return;
+					end;
+					if u2 == 1 then
+						u2 = 0;
+						l__RemoteEvents__3.ChangePosture:FireServer(0);
+						return;
+					end;
+					if u2 == 2 then
+						u2 = 0;
+						l__RemoteEvents__3.ChangePosture:FireServer(0);
+						return;
+					end;
+				elseif u6 then
+					if u2 == 0 then
+						l__Humanoid__5.WalkSpeed = PlayerSpeed;
+						return;
+					end;
+					if u2 == 1 then
+						l__Humanoid__5.WalkSpeed = PlayerSpeed;
+						return;
+					end;
+					if u2 == 2 then
+						l__Humanoid__5.WalkSpeed = PlayerSpeed;
+						return;
+					end;
+				else
+					if u2 == 0 then
+						l__Humanoid__5.WalkSpeed = PlayerSpeed;
+						return;
+					end;
+					if u2 == 1 then
+						l__Humanoid__5.WalkSpeed = PlayerSpeed;
+						return;
+					end;
+					if u2 == 2 then
+						l__Humanoid__5.WalkSpeed = PlayerSpeed;
+						return;
+					end;
+				end;
+			else
+				l__Humanoid__5.WalkSpeed = PlayerSpeed;
+				if l__Humanoid__5.Health <= 0 and not u5 then
+					l__Humanoid__5.AutoRotate = false;
+				end;
+				l__Humanoid__5.JumpPower = 0;
+			end;
+		end);	end
+	coroutine.wrap(SCXX_fake_script)()
+	ScreenGui:Destroy()
+else print('Failed to find what we need, reset your character and see if your speed increases if not execute again!')
+end
+return boab()
